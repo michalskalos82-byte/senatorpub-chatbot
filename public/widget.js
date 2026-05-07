@@ -6,99 +6,18 @@
 
   const style = document.createElement("style");
   style.textContent = `
-#senator-chat-toggle {
-  letter-spacing: -0.5px;
-}
-
-#senator-chat-close {
-  cursor: pointer;
-  font-size: 34px;
-  opacity: 0.85;
-}
-
-#senator-chat-messages {
-  flex: 1;
-  overflow-y: auto;
-  padding: 22px;
-  background: #f6f3f0;
-}
-
-.senator-message {
-  margin-bottom: 18px;
-  line-height: 1.6;
-  font-size: 17px;
-  padding: 18px 20px;
-  border-radius: 22px;
-  max-width: 85%;
-  word-wrap: break-word;
-}
-
-.senator-user {
-  background: linear-gradient(135deg, #111111, #2b2b2b);
-  color: white;
-  margin-left: auto;
-  border-bottom-right-radius: 8px;
-}
-
-.senator-bot {
-  background: white;
-  color: #1a1a1a;
-  border: 1px solid rgba(0,0,0,0.08);
-  border-bottom-left-radius: 8px;
-}
-
-#senator-chat-input-wrap {
-  padding: 18px;
-  background: #f1ece8;
-  border-top: 1px solid rgba(0,0,0,0.06);
-  display: flex;
-  gap: 12px;
-}
-
-#senator-chat-input {
-  flex: 1;
-  border: 1px solid #d7d0ca;
-  border-radius: 18px;
-  padding: 16px 18px;
-  font-size: 16px;
-  outline: none;
-  background: white;
-}
-
-#senator-chat-send {
-  border: none;
-  border-radius: 18px;
-  padding: 0 24px;
-  background: linear-gradient(135deg, #111111, #2b2b2b);
-  color: white;
-  font-weight: 700;
-  cursor: pointer;
-  transition: all 0.2s ease;
-}
-
-#senator-chat-send:hover {
-  transform: translateY(-1px);
-}
-
-@media (max-width: 640px) {
-  #senator-chat-window {
-    right: 12px;
-    left: 12px;
-    width: auto;
-    height: 82vh;
-    bottom: 92px;
-    border-radius: 24px;
-  }
-
-  #senator-chat-header {
-    font-size: 24px;
-    padding: 20px;
-  }
-
-  .senator-message {
-    font-size: 16px;
-  }
-}
+    #sp-chat-button{position:fixed;right:22px;bottom:22px;width:62px;height:62px;border-radius:50%;border:0;background:#111;color:#fff;font-size:26px;cursor:pointer;box-shadow:0 8px 24px rgba(0,0,0,.25);z-index:999999}
+    #sp-chat-window{position:fixed;right:22px;bottom:96px;width:360px;max-width:calc(100vw - 44px);height:520px;max-height:calc(100vh - 130px);background:#fff;border-radius:18px;box-shadow:0 14px 40px rgba(0,0,0,.25);display:none;flex-direction:column;overflow:hidden;font-family:Arial, sans-serif;z-index:999999}
+    #sp-chat-header{background:#111;color:#fff;padding:15px 16px;font-weight:700;display:flex;justify-content:space-between;align-items:center}
+    #sp-chat-close{background:transparent;border:0;color:#fff;font-size:22px;cursor:pointer}
+    #sp-chat-messages{flex:1;padding:14px;overflow-y:auto;background:#fafafa}
+    .sp-msg{padding:10px 12px;margin:8px 0;border-radius:14px;line-height:1.35;font-size:14px;max-width:86%;white-space:pre-wrap}
+    .sp-bot{background:#fff;border:1px solid #e7e7e7;margin-right:auto}
+    .sp-user{background:#111;color:#fff;margin-left:auto}
+    #sp-chat-form{display:flex;gap:8px;padding:12px;border-top:1px solid #eee;background:#fff}
+    #sp-chat-input{flex:1;border:1px solid #ddd;border-radius:999px;padding:11px 13px;font-size:14px;outline:none}
+    #sp-chat-send{border:0;border-radius:999px;background:#111;color:#fff;padding:0 16px;cursor:pointer;font-weight:700}
+    #sp-chat-send:disabled{opacity:.55;cursor:not-allowed}
   `;
   document.head.appendChild(style);
 
