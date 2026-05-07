@@ -45,7 +45,7 @@ if (!process.env.OPENAI_API_KEY) {
   console.warn("Missing OPENAI_API_KEY. Create .env from .env.example.");
 }
 
-const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
+const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY?.trim() });
 
 const SYSTEM_PROMPT = `
 Si AI asistent pre Senátor Pub & Restaurant v Tvrdošíne.
