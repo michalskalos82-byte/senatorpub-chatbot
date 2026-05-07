@@ -83,7 +83,13 @@ app.post("/chat", async (req, res) => {
     const response = await openai.responses.create({
       model: process.env.OPENAI_MODEL || "gpt-4.1-mini",
       instructions: SYSTEM_PROMPT,
-      input: message,
+      input: `
+Aktuálny dátum a čas na Slovensku:
+${new Date().toLocaleString("sk-SK", { timeZone: "Europe/Bratislava", weekday: "long", year: "numeric", month: "long", day: "numeric", hour: "2-digit", minute: "2-digit" })}
+
+Otázka zákazníka:
+${message}
+`,
       temperature: 0.2,
       max_output_tokens: 350
     });
