@@ -6,146 +6,97 @@
 
   const style = document.createElement("style");
   style.textContent = `
-Rozmýšľal som 9s
-
-Áno, pokazil sa len CSS selector — vložil sa dizajn pre iné názvy prvkov.
-
-V public/widget.js nahraď celý obsah medzi:
-
-style.textContent = `
-
-a
-
-`;
-
-týmto CSS:
-
-#sp-chat-button{
-  position:fixed;
-  right:24px;
-  bottom:24px;
-  width:68px;
-  height:68px;
-  border-radius:50%;
-  border:0;
-  background:linear-gradient(135deg,#111,#2a2a2a);
-  color:#fff;
-  font-size:28px;
-  cursor:pointer;
-  box-shadow:0 12px 35px rgba(0,0,0,.35);
-  z-index:999999;
+#senator-chat-toggle {
+  letter-spacing: -0.5px;
 }
 
-#sp-chat-window{
-  position:fixed;
-  right:24px;
-  bottom:110px;
-  width:390px;
-  max-width:calc(100vw - 32px);
-  height:640px;
-  max-height:calc(100vh - 140px);
-  background:#f6f3f0;
-  border-radius:28px;
-  box-shadow:0 24px 70px rgba(0,0,0,.32);
-  display:none;
-  flex-direction:column;
-  overflow:hidden;
-  font-family:Arial,sans-serif;
-  z-index:999999;
+#senator-chat-close {
+  cursor: pointer;
+  font-size: 34px;
+  opacity: 0.85;
 }
 
-#sp-chat-header{
-  background:linear-gradient(135deg,#111,#1d1d1d);
-  color:#fff;
-  padding:22px;
-  font-size:22px;
-  font-weight:800;
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
+#senator-chat-messages {
+  flex: 1;
+  overflow-y: auto;
+  padding: 22px;
+  background: #f6f3f0;
 }
 
-#sp-chat-close{
-  background:transparent;
-  border:0;
-  color:#fff;
-  font-size:26px;
-  cursor:pointer;
+.senator-message {
+  margin-bottom: 18px;
+  line-height: 1.6;
+  font-size: 17px;
+  padding: 18px 20px;
+  border-radius: 22px;
+  max-width: 85%;
+  word-wrap: break-word;
 }
 
-#sp-chat-messages{
-  flex:1;
-  padding:22px;
-  overflow-y:auto;
-  background:#f6f3f0;
+.senator-user {
+  background: linear-gradient(135deg, #111111, #2b2b2b);
+  color: white;
+  margin-left: auto;
+  border-bottom-right-radius: 8px;
 }
 
-.sp-msg{
-  padding:16px 18px;
-  margin:0 0 16px;
-  border-radius:22px;
-  line-height:1.5;
-  font-size:16px;
-  max-width:85%;
-  white-space:pre-wrap;
+.senator-bot {
+  background: white;
+  color: #1a1a1a;
+  border: 1px solid rgba(0,0,0,0.08);
+  border-bottom-left-radius: 8px;
 }
 
-.sp-bot{
-  background:#fff;
-  color:#1a1a1a;
-  border:1px solid rgba(0,0,0,.08);
-  margin-right:auto;
-  border-bottom-left-radius:8px;
+#senator-chat-input-wrap {
+  padding: 18px;
+  background: #f1ece8;
+  border-top: 1px solid rgba(0,0,0,0.06);
+  display: flex;
+  gap: 12px;
 }
 
-.sp-user{
-  background:linear-gradient(135deg,#111,#2b2b2b);
-  color:#fff;
-  margin-left:auto;
-  border-bottom-right-radius:8px;
+#senator-chat-input {
+  flex: 1;
+  border: 1px solid #d7d0ca;
+  border-radius: 18px;
+  padding: 16px 18px;
+  font-size: 16px;
+  outline: none;
+  background: white;
 }
 
-#sp-chat-form{
-  display:flex;
-  gap:12px;
-  padding:18px;
-  border-top:1px solid rgba(0,0,0,.08);
-  background:#f1ece8;
+#senator-chat-send {
+  border: none;
+  border-radius: 18px;
+  padding: 0 24px;
+  background: linear-gradient(135deg, #111111, #2b2b2b);
+  color: white;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
 }
 
-#sp-chat-input{
-  flex:1;
-  border:1px solid #d7d0ca;
-  border-radius:18px;
-  padding:14px 16px;
-  font-size:16px;
-  outline:none;
-  background:#fff;
+#senator-chat-send:hover {
+  transform: translateY(-1px);
 }
 
-#sp-chat-send{
-  border:0;
-  border-radius:18px;
-  background:#111;
-  color:#fff;
-  padding:0 22px;
-  cursor:pointer;
-  font-weight:800;
-  font-size:15px;
-}
+@media (max-width: 640px) {
+  #senator-chat-window {
+    right: 12px;
+    left: 12px;
+    width: auto;
+    height: 82vh;
+    bottom: 92px;
+    border-radius: 24px;
+  }
 
-#sp-chat-send:disabled{
-  opacity:.55;
-  cursor:not-allowed;
-}
+  #senator-chat-header {
+    font-size: 24px;
+    padding: 20px;
+  }
 
-@media(max-width:640px){
-  #sp-chat-window{
-    right:12px;
-    left:12px;
-    width:auto;
-    height:82vh;
-    bottom:96px;
+  .senator-message {
+    font-size: 16px;
   }
 }
   `;
