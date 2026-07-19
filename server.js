@@ -100,17 +100,21 @@ ${message}
       max_output_tokens: 350
     });
 
-    let answer =
+   let answer =
   response.output_text ||
   "Prepáčte, odpoveď sa nepodarilo vygenerovať.";
 
-// Oprava nelogickej odpovede typu:
-// „Áno, zajtra je pondelok a prevádzka je zatvorená.“
-if (
-  /\bzatvoren[áéý]\b/i.test(answer) &&
-  /^\s*áno[,!.]?/i.test(answer)
-) {
-  answer = answer.replace(/^\s*áno[,!.]?/i, "Nie,");
+
+const startsWithYes = /^\s*áno(?:\s|,|\.|!|\?|:|;|-)/i.test(answer);
+
+const saysClosed =
+  /zatvorené|zatvorená|zatvorený|zatvorení|neotvárame/i.test(answer);
+
+if (startsWithYes && saysClosed) {
+  answer = answer.replace(
+    /^\s*áno(?:\s|,|\.|!|\?|:|;|-)*/i,
+    "Nie, "
+  );
 }
 
 res.json({ answer });
