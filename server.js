@@ -66,9 +66,15 @@ KNOWLEDGE_BASE:
 ${getKnowledgeBase()}
 `;
 function getKnowledgeBase() {
-  return fs.readFileSync("./knowledge.txt", "utf8");
-}
-app.post("/chat", async (req, res) => {
+  const generalKnowledge = fs.readFileSync("./knowledge.txt", "utf8");
+  const menuKnowledge = fs.readFileSync("./menu_knowledge.txt", "utf8");
+
+  return `
+${generalKnowledge}
+
+${menuKnowledge}
+`;
+}app.post("/chat", async (req, res) => {
   try {
     const message = String(req.body?.message || "").trim();
 
