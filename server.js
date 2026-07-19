@@ -117,6 +117,15 @@ if (startsWithYes && saysClosed) {
   );
 }
 
+const asksForTime =
+  /^\s*(kedy|dokedy|od koľkej|do koľkej|aké sú otváracie hodiny)/i.test(message);
+
+if (asksForTime) {
+  answer = answer.replace(/^\s*(áno|nie)[,.:;!?\s-]*/i, "");
+  answer = answer.charAt(0).toUpperCase() + answer.slice(1);
+}
+
+
 res.json({ answer });
   } catch (error) {
     console.error(error);
