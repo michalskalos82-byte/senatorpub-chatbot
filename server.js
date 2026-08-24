@@ -203,6 +203,34 @@ app.get("/admin/report", async (req, res) => {
     res.status(500).json({ error: "Report sa nepodarilo načítať." });
   }
 });
+app.get("/admin/history", async (req, res) => {
+  if (!ADMIN_REPORT_KEY || req.headers["x-admin-key"] !== ADMIN_REPORT_KEY) {
+    return res.status(401).json({ error: "Unauthorized" });
+  }
+
+  try {
+    const result = await db.query(`
+      SELECT
+        id,
+        message AS question,
+        answer,
+        created_at
+      FROM chat_logs
+      WHERE bot_id = 'senator-pub'
+      ORDER BY created_at DESC
+      LIMIT 100
+    `);
+
+    res.json({
+      bot_id: "senator-pub",
+      count: result.rows.length,
+      history: result.rows
+    });
+  } catch (error) {
+    console.error("History error:", error);
+    res.status(500).json({ error: "Históriu sa nepodarilo načítať." });
+  }
+});
 app.listen(port, () => {
   console.log(`Senator Pub AI chatbot server running on http://localhost:${port}`);
 });
