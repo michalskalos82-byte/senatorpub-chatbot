@@ -3,6 +3,7 @@ import cors from "cors";
 import dotenv from "dotenv";
 import rateLimit from "express-rate-limit";
 import OpenAI from "openai";
+import pg from "pg";
 import path from "path";
 import fs from "fs";
 import { fileURLToPath } from "url";
@@ -14,7 +15,30 @@ const __dirname = path.dirname(__filename);
 
 const app = express();
 const port = process.env.PORT || 3000;
+const { Pool } = pg;
 
+const db = new Pool({
+  connectionString: process.env.DATABASE_URL,
+  ssl: process.env.NODE_ENV === "production"
+    ? { rejectUnauthorized: false }
+    : false,
+});
+async function initDatabase() {
+  await db.query(`
+    CREATE TABLE IF NOT EXISTS chat_logs (
+      id SERIAL PRIMARY KEY,
+      bot_id TEXT NOT NULL DEFAULT 'senator-pub',
+      session_id TEXT,
+      question TEXT NOT NULL,
+      answer TEXT NOT NULL,
+      created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+    );
+  `);
+}
+
+initDatabase()
+  .then(() => console.log("Database ready"))
+  .catch((error) => console.error("Database init error:", error));
 const allowedOrigins = (process.env.ALLOWED_ORIGINS || "")
   .split(",")
   .map((origin) => origin.trim())
@@ -125,7 +149,15 @@ if (asksForTime) {
   answer = answer.charAt(0).toUpperCase() + answer.slice(1);
 }
 
-
+try {
+  await db.query(
+    `INSERT INTO chat_logs (bot_id, question, answer)
+     VALUES ($1, $2, $3)`,
+    ["senator-pub", message, answer]
+  );
+} catch (dbError) {
+  console.error("Chat log save error:", dbError);
+}
 res.json({ answer });
   } catch (error) {
     console.error(error);
