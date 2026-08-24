@@ -166,7 +166,43 @@ res.json({ answer });
     });
   }
 });
+const ADMIN_REPORT_KEY = process.env.ADMIN_REPORT_KEY;
+app.get("/admin/report", async (req, res) => {
+  if (!ADMIN_REPORT_KEY || req.headers["x-admin-key"] !== ADMIN_REPORT_KEY) {
+    return res.status(401).json({ error: "Unauthorized" });
+  }
+  try {
+    const totalResult = await db.query(`
+      SELECT COUNT(*)::int AS total
+      FROM chat_logs
+      WHERE bot_id = 'senator-pub'
+    `);
 
+    const last7DaysResult = await db.query(`
+      SELECT COUNT(*)::int AS total
+      FROM chat_logs
+      WHERE bot_id = 'senator-pub'
+        AND created_at >= NOW() - INTERVAL '7 days'
+    `);
+
+    const last30DaysResult = await db.query(`
+      SELECT COUNT(*)::int AS total
+      FROM chat_logs
+      WHERE bot_id = 'senator-pub'
+        AND created_at >= NOW() - INTERVAL '30 days'
+    `);
+
+    res.json({
+      bot_id: "senator-pub",
+      total_questions: totalResult.rows[0].total,
+      questions_last_7_days: last7DaysResult.rows[0].total,
+      questions_last_30_days: last30DaysResult.rows[0].total
+    });
+  } catch (error) {
+    console.error("Report error:", error);
+    res.status(500).json({ error: "Report sa nepodarilo načítať." });
+  }
+});
 app.listen(port, () => {
   console.log(`Senator Pub AI chatbot server running on http://localhost:${port}`);
 });
