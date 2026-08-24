@@ -212,7 +212,7 @@ app.get("/admin/history", async (req, res) => {
     const result = await db.query(`
       SELECT
         id,
-        message AS question,
+        question,
         answer,
         created_at
       FROM chat_logs
