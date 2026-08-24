@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>TopBot Report</title>
+<script src="https://cdn.jsdelivr.net/npm/xlsx/dist/xlsx.full.min.js"></script>
 
   <style>
     body {
@@ -174,6 +175,9 @@
 
     <div class="history">
       <h2>História otázok</h2>
+<button id="exportExcelBtn" type="button" onclick="exportToExcel()">
+  Exportovať do Excelu
+</button>
 
       <table>
         <thead>
@@ -293,7 +297,41 @@ function escapeHtml(value) {
     .replaceAll('"', "&quot;")
     .replaceAll("'", "&#039;");
 }
+function exportToExcel() {
+  const rows = [];
 
+  rows.push(["Dátum", "Otázka", "Odpoveď"]);
+
+  const tableRows = document.querySelectorAll("#historyTable tr");
+
+  tableRows.forEach((row) => {
+    const cells = row.querySelectorAll("td");
+
+    if (cells.length === 3) {
+      rows.push([
+        cells[0].innerText,
+        cells[1].innerText,
+        cells[2].innerText
+      ]);
+    }
+  });
+
+  const worksheet = XLSX.utils.aoa_to_sheet(rows);
+
+  worksheet["!cols"] = [
+    { wch: 22 },
+    { wch: 45 },
+    { wch: 80 }
+  ];
+
+  const workbook = XLSX.utils.book_new();
+  XLSX.utils.book_append_sheet(workbook, worksheet, "História");
+
+  XLSX.writeFile(
+    workbook,
+    "Senator_Pub_TopBot_Report.xlsx"
+  );
+}
 </script>
 
 </body>
