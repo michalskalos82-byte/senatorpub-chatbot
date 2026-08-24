@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="sk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TopBot Report</title>
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f4f5f7;
+      margin: 0;
+      padding: 30px;
+      color: #222;
+    }
+
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    h1 {
+      margin-bottom: 10px;
+    }
+
+    .login,
+    .stats,
+    .history {
+      background: white;
+      border-radius: 14px;
+      padding: 20px;
+      margin-bottom: 20px;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.06);
+    }
+
+    input {
+      padding: 12px;
+      width: 320px;
+      max-width: 100%;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+    }
+
+    button {
+      padding: 12px 18px;
+      border: 0;
+      border-radius: 8px;
+      background: #111;
+      color: white;
+      cursor: pointer;
+      margin-left: 8px;
+    }
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 15px;
+    }
+
+    .card {
+      background: #f7f7f7;
+      border-radius: 10px;
+      padding: 18px;
+    }
+
+    .card strong {
+      display: block;
+      font-size: 30px;
+      margin-top: 8px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 15px;
+    }
+
+    th, td {
+      text-align: left;
+      padding: 12px;
+      border-bottom: 1px solid #ddd;
+      vertical-align: top;
+    }
+
+    th {
+      background: #f7f7f7;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    .error {
+      color: #b00020;
+      margin-top: 12px;
+    }
+
+    @media (max-width: 800px) {
+      .cards {
+        grid-template-columns: 1fr;
+      }
+
+      table,
+      thead,
+      tbody,
+      th,
+      td,
+      tr {
+        display: block;
+      }
+
+      th {
+        display: none;
+      }
+
+      td {
+        border-bottom: 0;
+        padding: 8px 0;
+      }
+
+      tr {
+        padding: 15px 0;
+        border-bottom: 1px solid #ddd;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+<div class="container">
+
+  <h1>TopBot Report</h1>
+  <p>Senator Pub chatbot</p>
+
+  <div class="login" id="loginBox">
+    <h2>Prihlásenie</h2>
+
+    <input
+      id="adminKey"
+      type="password"
+      placeholder="Admin kľúč"
+    >
+
+    <button onclick="loadReport()">Načítať report</button>
+
+    <div id="error" class="error"></div>
+  </div>
+
+  <div id="report" class="hidden">
+
+    <div class="stats">
+      <h2>Štatistiky</h2>
+
+      <div class="cards">
+
+        <div class="card">
+          Celkom otázok
+          <strong id="totalQuestions">0</strong>
+        </div>
+
+        <div class="card">
+          Posledných 7 dní
+          <strong id="last7Days">0</strong>
+        </div>
+
+        <div class="card">
+          Posledných 30 dní
+          <strong id="last30Days">0</strong>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="history">
+      <h2>História otázok</h2>
+
+      <table>
+        <thead>
+          <tr>
+            <th>Dátum</th>
+            <th>Otázka</th>
+            <th>Odpoveď</th>
+          </tr>
+        </thead>
+
+        <tbody id="historyTable"></tbody>
+      </table>
+
+    </div>
+
+  </div>
+
+</div>
+
+<script>
+
+const baseUrl = window.location.origin;
+
+async function loadReport() {
+
+  const adminKey =
+    document.getElementById("adminKey").value.trim();
+
+  const errorBox =
+    document.getElementById("error");
+
+  errorBox.textContent = "";
+
+  if (!adminKey) {
+    errorBox.textContent = "Zadajte admin kľúč.";
+    return;
+  }
+
+  try {
+
+    const headers = {
+      "x-admin-key": adminKey
+    };
+
+    const reportResponse = await fetch(
+      `${baseUrl}/admin/report`,
+      { headers }
+    );
+
+    if (!reportResponse.ok) {
+      throw new Error("Neplatný admin kľúč.");
+    }
+
+    const reportData =
+      await reportResponse.json();
+
+    const historyResponse = await fetch(
+      `${baseUrl}/admin/history`,
+      { headers }
+    );
+
+    if (!historyResponse.ok) {
+      throw new Error("Históriu sa nepodarilo načítať.");
+    }
+
+    const historyData =
+      await historyResponse.json();
+
+    document.getElementById("totalQuestions").textContent =
+      reportData.total_questions;
+
+    document.getElementById("last7Days").textContent =
+      reportData.questions_last_7_days;
+
+    document.getElementById("last30Days").textContent =
+      reportData.questions_last_30_days;
+
+    const table =
+      document.getElementById("historyTable");
+
+    table.innerHTML = "";
+
+    for (const item of historyData.history) {
+
+      const row =
+        document.createElement("tr");
+
+      const date =
+        new Date(item.created_at).toLocaleString("sk-SK");
+
+      row.innerHTML = `
+        <td>${date}</td>
+        <td>${escapeHtml(item.question)}</td>
+        <td>${escapeHtml(item.answer)}</td>
+      `;
+
+      table.appendChild(row);
+    }
+
+    document.getElementById("report")
+      .classList.remove("hidden");
+
+  } catch (error) {
+
+    errorBox.textContent =
+      error.message;
+
+  }
+}
+
+function escapeHtml(value) {
+
+  return String(value)
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;")
+    .replaceAll("'", "&#039;");
+}
+
+</script>
+
+</body>
+</html>
