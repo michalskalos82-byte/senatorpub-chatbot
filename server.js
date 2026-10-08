@@ -155,6 +155,10 @@ try {
      VALUES ($1, $2, $3)`,
     ["senator-pub", message, answer]
   );
+await db.query(`
+  DELETE FROM chat_logs
+  WHERE created_at < NOW() - INTERVAL '90 days'
+`);
 } catch (dbError) {
   console.error("Chat log save error:", dbError);
 }
@@ -218,7 +222,7 @@ app.get("/admin/history", async (req, res) => {
       FROM chat_logs
       WHERE bot_id = 'senator-pub'
       ORDER BY created_at DESC
-      LIMIT 100
+     
     `);
 
     res.json({
