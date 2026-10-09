@@ -120,8 +120,9 @@ ${new Date().toLocaleString("sk-SK", { timeZone: "Europe/Bratislava", weekday: "
 Otázka zákazníka:
 ${message}
 `,
-      temperature: 0.2,
-      max_output_tokens: 350
+          temperature: 0.2,
+    max_output_tokens: 350,
+    store: false
     });
 
    let answer =
