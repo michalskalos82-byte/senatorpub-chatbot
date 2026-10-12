@@ -588,7 +588,7 @@
       </button>
 
       <button class="tb-care-tab" type="button" data-tab="menu">
-        <span>📖</span>Jedálny lístok
+        <span>📖</span>Menu
       </button>
 
       <button class="tb-care-tab" type="button" data-tab="info">
