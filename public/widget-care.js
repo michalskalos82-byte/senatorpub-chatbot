@@ -347,7 +347,7 @@
     }
 
     .tb-menu-item {
-      padding: 13px 16px;
+      padding: 9px 16px;
       border-bottom: 1px solid #f0ece7;
       font-size: 13px;
       line-height: 1.5;
