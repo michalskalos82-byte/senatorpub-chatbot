@@ -296,7 +296,112 @@
       color: #76502d;
       overflow-wrap: anywhere;
     }
+    /* TOPBOT CARE – JEDÁLNY LÍSTOK */
 
+    .tb-menu-switcher {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+      margin-bottom: 18px;
+      padding: 5px;
+      background: #eee8e1;
+      border-radius: 14px;
+    }
+
+    .tb-menu-switch {
+      border: 0;
+      border-radius: 10px;
+      background: transparent;
+      color: #665d54;
+      padding: 12px 8px;
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .tb-menu-switch.active {
+      background: #17110d;
+      color: white;
+      box-shadow: 0 3px 10px rgba(0,0,0,.12);
+    }
+
+    .tb-menu-category {
+      background: white;
+      border: 1px solid #ece7e1;
+      border-radius: 13px;
+      margin-bottom: 10px;
+      overflow: hidden;
+    }
+
+    .tb-menu-category summary {
+      padding: 16px;
+      font-size: 15px;
+      font-weight: 700;
+      cursor: pointer;
+      list-style-position: inside;
+    }
+
+    .tb-menu-category[open] summary {
+      border-bottom: 1px solid #eee;
+      background: #faf8f5;
+    }
+
+    .tb-menu-item {
+      padding: 13px 16px;
+      border-bottom: 1px solid #f0ece7;
+      font-size: 13px;
+      line-height: 1.5;
+    }
+
+    .tb-menu-item:last-child {
+      border-bottom: 0;
+    }
+
+    .tb-menu-item-name {
+      display: block;
+      font-size: 14px;
+      margin-bottom: 3px;
+    }
+
+    .tb-menu-portion {
+      display: inline-block;
+      color: #777;
+      margin-right: 10px;
+    }
+
+    .tb-menu-price {
+      display: inline-block;
+      color: #17110d;
+      font-weight: 700;
+    }
+
+    .tb-menu-variant {
+      margin-top: 5px;
+      color: #554e48;
+    }
+
+    .tb-menu-allergens {
+      display: block;
+      color: #777;
+      margin-top: 5px;
+    }
+
+    .tb-menu-note {
+      display: block;
+      padding: 8px 16px;
+      margin: 0;
+      color: #76502d;
+      font-size: 12px;
+      line-height: 1.5;
+    }
+
+    .tb-menu-footer {
+      margin: 16px 0 8px;
+      color: #777;
+      font-size: 11px;
+      line-height: 1.6;
+      text-align: center;
+    }
     @media (max-width: 480px) {
       #tb-care-button {
         right: 15px;
@@ -496,7 +601,186 @@
   document.body.appendChild(windowEl);
 
   windowEl.querySelector("#tb-care-header-title").textContent = config.title;
+  // TOPBOT CARE – JEDÁLNY A NÁPOJOVÝ LÍSTOK
 
+  const menuPage = windowEl.querySelector('[data-page="menu"]');
+
+  const menuContainer = document.createElement("div");
+  menuContainer.id = "tb-care-menu-container";
+
+  menuPage.replaceChildren(menuContainer);
+
+  function formatPrice(price) {
+    return Number(price).toFixed(2).replace(".", ",") + " €";
+  }
+
+  function createMenuElement(tag, className, text) {
+    const element = document.createElement(tag);
+    if (className) element.className = className;
+    if (text !== undefined) element.textContent = text;
+    return element;
+  }
+
+  async function loadMenu() {
+    menuContainer.textContent = "Načítavam jedálny lístok...";
+
+    try {
+      const menuUrl = new URL(
+        "menu.json",
+        new URL(script.src).href
+      );
+
+      const response = await fetch(menuUrl);
+
+      if (!response.ok) {
+        throw new Error("Nepodarilo sa načítať menu.");
+      }
+
+      const menuData = await response.json();
+
+      menuContainer.replaceChildren();
+
+      const switcher = createMenuElement("div", "tb-menu-switcher");
+
+      const foodButton = createMenuElement(
+        "button",
+        "tb-menu-switch active",
+        "🍽️ Jedlá"
+      );
+
+      const drinkButton = createMenuElement(
+        "button",
+        "tb-menu-switch",
+        "🥤 Nápoje"
+      );
+
+      foodButton.type = "button";
+      drinkButton.type = "button";
+
+      switcher.append(foodButton, drinkButton);
+      menuContainer.appendChild(switcher);
+
+      const categoryContainer = createMenuElement(
+        "div",
+        "tb-menu-categories"
+      );
+
+      menuContainer.appendChild(categoryContainer);
+
+      function renderCategories(type) {
+        categoryContainer.replaceChildren();
+
+        foodButton.classList.toggle("active", type === "food");
+        drinkButton.classList.toggle("active", type === "drink");
+
+        const categories = menuData.categories.filter(
+          category => category.type === type
+        );
+
+        categories.forEach(category => {
+          const details = createMenuElement("details", "tb-menu-category");
+
+          const summary = createMenuElement(
+            "summary",
+            "",
+            category.name
+          );
+
+          details.appendChild(summary);
+
+          if (category.note) {
+            details.appendChild(
+              createMenuElement("p", "tb-menu-note", category.note)
+            );
+          }
+
+          category.items.forEach(item => {
+            const row = createMenuElement("div", "tb-menu-item");
+
+            const name = createMenuElement(
+              "strong",
+              "tb-menu-item-name",
+              item.name
+            );
+
+            row.appendChild(name);
+
+            if (item.portion) {
+              row.appendChild(
+                createMenuElement("span", "tb-menu-portion", item.portion)
+              );
+            }
+
+            if (item.price !== undefined) {
+              row.appendChild(
+                createMenuElement(
+                  "span",
+                  "tb-menu-price",
+                  formatPrice(item.price)
+                )
+              );
+            }
+
+            if (item.variants) {
+              item.variants.forEach(variant => {
+                row.appendChild(
+                  createMenuElement(
+                    "div",
+                    "tb-menu-variant",
+                    variant.portion + " – " + formatPrice(variant.price)
+                  )
+                );
+              });
+            }
+
+            if (item.allergens?.length) {
+              row.appendChild(
+                createMenuElement(
+                  "small",
+                  "tb-menu-allergens",
+                  "Alergény: " + item.allergens.join(", ")
+                )
+              );
+            }
+
+            if (item.note) {
+              row.appendChild(
+                createMenuElement("small", "tb-menu-note", item.note)
+              );
+            }
+
+            details.appendChild(row);
+          });
+
+          categoryContainer.appendChild(details);
+        });
+      }
+
+      foodButton.addEventListener("click", () => {
+        renderCategories("food");
+      });
+
+      drinkButton.addEventListener("click", () => {
+        renderCategories("drink");
+      });
+
+      renderCategories("food");
+
+      const footer = createMenuElement("div", "tb-menu-footer");
+
+      footer.textContent =
+        "Ceny sú vrátane DPH. Dostupnosť jedál a informácie " +
+        "o alergénoch si, prosím, overte s obsluhou.";
+
+      menuContainer.appendChild(footer);
+
+    } catch (error) {
+      menuContainer.textContent =
+        "Jedálny lístok sa momentálne nepodarilo načítať.";
+    }
+  }
+
+  loadMenu();
   const closeButton = windowEl.querySelector("#tb-care-close");
   const messages = windowEl.querySelector("#tb-care-messages");
   const form = windowEl.querySelector("#tb-care-form");
