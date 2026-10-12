@@ -1,0 +1,269 @@
+{
+  "restaurant": "Senator Pub & Restaurant",
+  "edition": "Šieste vydanie – máj 2026",
+  "currency": "EUR",
+  "pricesIncludeVAT": true,
+  "categories": [
+    {
+      "id": "chutovky",
+      "name": "Chutovky",
+      "type": "food",
+      "items": [
+        {"name": "Cibuľové krúžky", "portion": "10 ks", "price": 3.50, "allergens": [1, 3, 7]},
+        {"name": "Zemiakové chipsy", "portion": "100 g", "price": 3.50},
+        {"name": "Hranolky zapečené s cheddarom", "portion": "200 g", "price": 4.50, "allergens": [7]},
+        {"name": "Syrová misa s olivami", "portion": "500 g", "price": 13.50, "allergens": [7]},
+        {"name": "Tatársky biftek s hriankami", "portion": "100 g", "price": 13.50, "allergens": [1, 3, 7, 10], "note": "Objednávka 12 hodín vopred."}
+      ]
+    },
+    {
+      "id": "polievky",
+      "name": "Polievky",
+      "type": "food",
+      "items": [
+        {"name": "Slepačí vývar", "portion": "0,33 l", "price": 3.50, "allergens": [1, 3, 9]},
+        {"name": "Paradajková s parmezánom a pestom", "portion": "0,33 l", "price": 3.90, "allergens": [7]},
+        {"name": "Kapustnica s klobásou a údeným mäsom, chlieb", "portion": "0,33 l", "price": 4.50, "allergens": [1, 3, 7]},
+        {"name": "Polievka podľa dennej ponuky", "portion": "0,33 l", "price": 2.50}
+      ]
+    },
+    {
+      "id": "maso",
+      "name": "Jedlá z mäsa",
+      "type": "food",
+      "items": [
+        {"name": "Korýtko pre 4 osoby", "portion": "2 kg", "price": 52.00, "allergens": [1, 3, 7]},
+        {"name": "Pulled pork s cheddarom", "portion": "250 g", "price": 8.90, "allergens": [7, 10]},
+        {"name": "Pečené bravčové rebrá", "portion": "500 g", "price": 13.50, "allergens": [1, 3, 7, 10]},
+        {"name": "BBQ krídelká", "portion": "250 g", "price": 7.80},
+        {"name": "Grilované kuracie prsia", "portion": "150 g", "price": 7.50},
+        {"name": "Vyprážaný kurací rezeň", "portion": "150 g", "price": 8.20, "allergens": [1, 3, 7]},
+        {"name": "Vyprážaný bravčový rezeň", "portion": "150 g", "price": 9.20, "allergens": [1, 3, 7]}
+      ]
+    },
+    {
+      "id": "burgery",
+      "name": "Burgery a sendviče",
+      "type": "food",
+      "note": "Bezlepková žemľa +0,80 €.",
+      "items": [
+        {"name": "Burger Classic", "portion": "400 g", "price": 10.20, "allergens": [1, 3, 7]},
+        {"name": "Burger s trhaným mäsom", "portion": "400 g", "price": 9.20, "allergens": [1, 3, 7]},
+        {"name": "Kurací burger – grilovaný", "portion": "400 g", "price": 9.50, "allergens": [1, 3, 7]},
+        {"name": "Kurací burger – vyprážaný", "portion": "400 g", "price": 9.90, "allergens": [1, 3, 7]},
+        {"name": "Senátor burger", "portion": "400 g", "price": 11.50, "allergens": [1, 3, 7]},
+        {"name": "Encián burger", "portion": "400 g", "price": 10.50, "allergens": [1, 3, 7]},
+        {"name": "Senátor Sandwich", "portion": "200 g", "price": 7.50, "allergens": [1, 3, 7]}
+      ]
+    },
+    {
+      "id": "burger-doplnky",
+      "name": "Doplnky k burgerom",
+      "type": "food",
+      "items": [
+        {"name": "Hovädzie mleté", "portion": "120 g", "price": 4.50},
+        {"name": "Slanina", "portion": "50 g", "price": 1.30},
+        {"name": "Cheddar", "portion": "60 g", "price": 1.60},
+        {"name": "Hermelín", "portion": "60 g", "price": 1.30},
+        {"name": "Vajíčko", "portion": "1 ks", "price": 1.30},
+        {"name": "Jalapeños", "portion": "50 g", "price": 1.30},
+        {"name": "Rukola", "portion": "60 g", "price": 1.30},
+        {"name": "Kyslá uhorka", "portion": "60 g", "price": 1.30}
+      ]
+    },
+    {
+      "id": "slovenske",
+      "name": "Slovenské a bezmäsité jedlá",
+      "type": "food",
+      "items": [
+        {"name": "Bryndzové halušky so slaninkou", "portion": "350 g", "price": 9.20, "allergens": [1, 3, 7]},
+        {"name": "Bryndzové pirohy so smotanou a slaninkou", "portion": "350 g", "price": 8.90, "allergens": [1, 3, 7]},
+        {"name": "Grilovaný/vyprážaný hermelín s brusnicami", "portion": "120 g", "price": 7.50, "allergens": [1, 3, 7]},
+        {"name": "Vyprážaný syr", "portion": "120 g", "price": 7.80, "allergens": [1, 3, 7]},
+        {"name": "Šalát s grilovaným kuracím mäsom", "portion": "300 g", "price": 9.50, "allergens": [7, 10]}
+      ]
+    },
+    {
+      "id": "prilohy",
+      "name": "Prílohy",
+      "type": "food",
+      "items": [
+        {"name": "Hranolky", "portion": "200 g", "price": 3.20},
+        {"name": "Batatové hranolky", "portion": "200 g", "price": 4.20},
+        {"name": "Varené zemiaky", "portion": "200 g", "price": 2.50},
+        {"name": "Opekané zemiaky", "portion": "200 g", "price": 2.50},
+        {"name": "Ryža", "portion": "200 g", "price": 2.50},
+        {"name": "Miešaný zeleninový šalát", "portion": "150 g", "price": 3.90},
+        {"name": "Coleslaw", "portion": "150 g", "price": 3.90, "allergens": [7]}
+      ]
+    },
+    {
+      "id": "dezerty",
+      "name": "Dezerty",
+      "type": "food",
+      "items": [
+        {"name": "Palacinky s vanilkovým krémom a malinami", "portion": "300 g", "price": 6.90, "allergens": [1, 3, 7]},
+        {"name": "Palacinky s Nutellou a šľahačkou", "portion": "300 g", "price": 6.90, "allergens": [1, 3, 7]},
+        {"name": "Čokoládový fondant so zmrzlinou a malinami", "portion": "110 g", "price": 5.90, "allergens": [1, 3, 7]},
+        {"name": "Tiramisu v pohári", "portion": "150 g", "price": 4.50, "allergens": [1, 3, 7]}
+      ]
+    },
+    {
+      "id": "dipy",
+      "name": "Dipy",
+      "type": "food",
+      "items": [
+        {"name": "Cesnakový, jogurtový, BBQ, chilli, kečup, tatárska, horčica, chren alebo brusnice", "portion": "50 g", "price": 1.50},
+        {"name": "Cheddar omáčka", "price": 2.00}
+      ]
+    },
+    {
+      "id": "nealko",
+      "name": "Nealkoholické nápoje",
+      "type": "drink",
+      "items": [
+        {"name": "Coca-Cola / Coca-Cola Zero / Sprite / Fanta", "portion": "0,33 l", "price": 2.80},
+        {"name": "Kinley Tonic", "portion": "0,25 l", "price": 2.80},
+        {"name": "Cappy", "portion": "0,25 l", "price": 2.80},
+        {"name": "Vinea biela", "portion": "0,25 l", "price": 2.50},
+        {"name": "Red Bull", "portion": "0,25 l", "price": 3.40},
+        {"name": "Römerquelle", "portion": "0,33 l", "price": 2.40},
+        {"name": "Römerquelle citrón", "portion": "0,33 l", "price": 2.60},
+        {"name": "Voda s citrónom", "variants": [
+          {"portion": "0,3 l", "price": 1.50},
+          {"portion": "0,5 l", "price": 2.00},
+          {"portion": "1 l", "price": 3.00}
+        ]},
+        {"name": "Čapovaná Kofola", "portion": "0,1 l", "price": 0.50}
+      ]
+    },
+    {
+      "id": "limonady",
+      "name": "Limonády",
+      "type": "drink",
+      "note": "Príchute: baza a citrón; jahoda a jazmín; mango a čierny čaj; levanduľa a arónia; marakuja a mandarínka; citrusová.",
+      "items": [
+        {"name": "Domáce limonády", "variants": [
+          {"portion": "0,5 l", "price": 4.80},
+          {"portion": "1 l", "price": 7.80}
+        ]}
+      ]
+    },
+    {
+      "id": "kava",
+      "name": "Káva",
+      "type": "drink",
+      "note": "Bezkofeínová varianta +0,40 €.",
+      "items": [
+        {"name": "Ristretto / Espresso / Lungo", "price": 2.10},
+        {"name": "Doppio", "price": 3.90},
+        {"name": "Macchiato", "price": 2.20},
+        {"name": "Cappuccino", "price": 2.90},
+        {"name": "Flat white", "price": 4.20},
+        {"name": "Latte macchiato", "price": 2.90},
+        {"name": "Ochutené latte", "price": 3.50},
+        {"name": "Viedenská káva", "price": 3.10},
+        {"name": "Ľadová káva", "price": 4.50},
+        {"name": "Affogato", "price": 3.40},
+        {"name": "Frappé", "price": 3.80},
+        {"name": "Írska káva", "price": 5.20}
+      ]
+    },
+    {
+      "id": "teple-napoje",
+      "name": "Teplé nápoje",
+      "type": "drink",
+      "items": [
+        {"name": "Balený čaj", "price": 2.50},
+        {"name": "Čerstvý zázvorový čaj", "price": 3.50},
+        {"name": "Čerstvý mätový čaj", "price": 3.50},
+        {"name": "Horúca čokoláda", "price": 4.50},
+        {"name": "Horúca biela čokoláda", "price": 4.50},
+        {"name": "Med", "price": 0.40, "note": "Doplnok k nápoju."}
+      ]
+    },
+    {
+      "id": "pivo",
+      "name": "Pivo",
+      "type": "drink",
+      "items": [
+        {"name": "Plzeň", "variants": [
+          {"portion": "0,28 l", "price": 2.20},
+          {"portion": "0,48 l", "price": 2.80}
+        ]},
+        {"name": "Radegast 10°", "variants": [
+          {"portion": "0,28 l", "price": 1.70},
+          {"portion": "0,48 l", "price": 2.30}
+        ]},
+        {"name": "Voľba sládkov", "portion": "0,4 l", "price": 2.50},
+        {"name": "Degustačná Plznička", "portion": "0,6 l", "price": 4.50},
+        {"name": "Birell", "portion": "0,5 l", "price": 2.50},
+        {"name": "Radler", "portion": "0,5 l", "price": 2.50},
+        {"name": "Plzeň fľašková", "portion": "0,5 l", "price": 2.80}
+      ]
+    },
+    {
+      "id": "vino",
+      "name": "Víno",
+      "type": "drink",
+      "note": "Ďalšie vína sú vo vínnej karte.",
+      "items": [
+        {"name": "Golguz Veltlínske zelené", "portion": "0,1 l", "price": 1.90},
+        {"name": "Golguz Zweigeltrebe", "portion": "0,1 l", "price": 1.90},
+        {"name": "Prosecco Frizzante", "portion": "0,1 l", "price": 2.20},
+        {"name": "Varené víno", "portion": "0,2 l", "price": 4.00}
+      ]
+    },
+    {
+      "id": "miesane",
+      "name": "Miešané nápoje",
+      "type": "drink",
+      "items": [
+        {"name": "Aperol Spritz", "price": 6.20},
+        {"name": "Cuba Libre", "price": 4.90},
+        {"name": "Gin & Tonic / Pink Gin & Tonic", "price": 5.80},
+        {"name": "Hugo", "price": 4.90},
+        {"name": "Mai Tai", "price": 6.20},
+        {"name": "Mojito", "price": 6.50},
+        {"name": "Jahodové Mojito", "price": 7.00},
+        {"name": "Piña Colada", "price": 6.50},
+        {"name": "Bavorák", "price": 4.90},
+        {"name": "B50", "price": 4.50},
+        {"name": "Tatranský vietor", "price": 7.20},
+        {"name": "Virgin Colada", "price": 5.00},
+        {"name": "Virgin Mojito", "price": 5.00},
+        {"name": "Virgin Mojito jahoda", "price": 5.50},
+        {"name": "Aperol Spritz nealko", "price": 6.00},
+        {"name": "Hugo nealko", "price": 5.00},
+        {"name": "Nealko Gin & Tonic / Pink", "price": 5.20}
+      ]
+    },
+    {
+      "id": "destilaty",
+      "name": "Destiláty a ďalší alkohol",
+      "type": "drink",
+      "note": "Ponuka zahŕňa destiláty, likéry, whisky, rumy, brandy a koňaky. Aktuálnu dostupnosť konkrétnej značky treba overiť s obsluhou.",
+      "items": []
+    }
+  ],
+  "allergens": {
+    "1": "Obilniny obsahujúce lepok",
+    "2": "Kôrovce",
+    "3": "Vajcia",
+    "4": "Ryby",
+    "5": "Arašidy",
+    "6": "Sója",
+    "7": "Mlieko a výrobky z neho",
+    "8": "Orechy",
+    "9": "Zeler",
+    "10": "Horčica",
+    "11": "Sezam",
+    "12": "Oxid siričitý a siričitany"
+  },
+  "notes": [
+    "Ceny sú uvedené vrátane DPH.",
+    "Gramáže jedál sú uvádzané v surovom stave a predstavujú hmotnosť základnej suroviny v jedle.",
+    "Dostupnosť jednotlivých položiek sa môže meniť.",
+    "Pri alergiách a špeciálnych požiadavkách kontaktujte obsluhu."
+  ]
+}
