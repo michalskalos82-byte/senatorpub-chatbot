@@ -722,16 +722,28 @@
             }
 
             if (item.variants) {
-              item.variants.forEach(variant => {
-                row.appendChild(
-                  createMenuElement(
-                    "div",
-                    "tb-menu-variant",
-                    variant.portion + " – " + formatPrice(variant.price)
-                  )
-                );
-              });
-            }
+  item.variants.forEach(variant => {
+    const variantRow = createMenuElement(
+      "div",
+      "tb-menu-variant"
+    );
+
+    const portion = createMenuElement(
+      "span",
+      "tb-menu-portion",
+      variant.portion + " – "
+    );
+
+    const price = createMenuElement(
+      "span",
+      "tb-menu-price",
+      formatPrice(variant.price)
+    );
+
+    variantRow.append(portion, price);
+    row.appendChild(variantRow);
+  });
+}
 
             if (item.allergens?.length) {
               row.appendChild(
