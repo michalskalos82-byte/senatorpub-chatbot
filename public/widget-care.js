@@ -4,7 +4,7 @@
   const script = document.currentScript;
 
   const config = {
-    apiUrl: script?.dataset?.apiUrl || `${window.location.origin}/chat`,
+    apiUrl: script?.dataset?.apiUrl || new URL("/chat", script.src).href,
     title: script?.dataset?.title || "Senator Pub",
     greeting:
       script?.dataset?.greeting ||
